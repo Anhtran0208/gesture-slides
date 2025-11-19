@@ -11,8 +11,8 @@ type Props = {
 export default function PdfSlideDeck({ url, page, maxWidth = 1200 }: Props) {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const docRef = useRef<any>(null);            // PDFDocumentProxy
-  const renderTaskRef = useRef<any>(null);     // RenderTask
+  const docRef = useRef<any>(null);            
+  const renderTaskRef = useRef<any>(null);
   const [containerW, setContainerW] = useState(900);
 
   // Observe container width (responsive)

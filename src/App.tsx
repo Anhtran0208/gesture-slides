@@ -43,7 +43,8 @@ export default function App() {
 
   const handleGesture = useCallback((g: string, _score: number) => {
     const now = Date.now();
-    if (now - lastFireRef.current < 900) return; // cooldown
+    // cooldown
+    if (now - lastFireRef.current < 900) return; 
     lastFireRef.current = now;
 
     if (g === "Thumb_Up" || g === "Victory" || g === "Pointing_Up") next();
@@ -52,9 +53,7 @@ export default function App() {
 
   return (
     <div style={{ display: "grid", gap: 16, padding: 24 }}>
-      <CameraView />
-      <GestureRec onGesture={handleGesture} />
-
+      
       <PdfUpload onLoaded={onPdfLoaded} />
 
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -70,6 +69,9 @@ export default function App() {
       ) : (
         <div style={{ opacity: 0.6 }}>Upload a Google Slides PDF to begin</div>
       )}
+      <CameraView />
+      <GestureRec onGesture={handleGesture} />
+
     </div>
   );
 }

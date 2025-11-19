@@ -80,7 +80,7 @@ export default function GestureRec({onGesture}: GestureRecProps){
     }, [])
 
     return (
-       <div style={{ color: "black", textAlign: "center", marginTop: 12 }}>
+       <div style={{ color: "black", textAlign: "center", marginTop: 12, display:'none' }}>
     <p>Detected Gesture display name: <b>{gestureDisplayName}</b></p>
     <p> Category name: <b>{gestureName}</b></p>
     <p>Score: <b>{gestureScore}</b></p>

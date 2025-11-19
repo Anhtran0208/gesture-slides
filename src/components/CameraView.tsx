@@ -5,65 +5,58 @@ export default function CameraView() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // add canvas for handmark can be drawn
-  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const startCamera = async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            width: 640,
-            height: 480,
-          },
-          audio: false,
-        });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: 640,
+          height: 480,
+        },
+        audio: false,
+      });
 
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          await videoRef.current.play();
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
 
-          drawToCanvas()
-        }
-      } 
+        drawToCanvas();
+      }
+    };
     const drawToCanvas = () => {
-        const video = videoRef.current 
-        const canvas = canvasRef.current 
-        if (!video || !canvas) return 
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      if (!video || !canvas) return;
 
-        const context = canvas.getContext("2d")
-        if (!context) return 
-        const render = () => {
-            context.drawImage(video, 0, 0, canvas.width, canvas.height)
-            requestAnimationFrame(render)
-        }
-        requestAnimationFrame(render)
-    }
-    startCamera()
+      const context = canvas.getContext("2d");
+      if (!context) return;
+      const render = () => {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(render);
+      };
+      requestAnimationFrame(render);
+    };
+    startCamera();
 
     return () => {
-        if (videoRef.current?.srcObject){
-            (videoRef.current.srcObject as MediaStream).getTracks().forEach((track) => track.stop())
-        }
-    }
-}, [])
-    return (
-      <div style={{ position: "relative", width: 640, height: 480 }}>
-
+      if (videoRef.current?.srcObject) {
+        (videoRef.current.srcObject as MediaStream)
+          .getTracks()
+          .forEach((track) => track.stop());
+      }
+    };
+  }, []);
+  return (
+    <>
       <video
-      id="camera"
+        id="camera"
         ref={videoRef}
         style={{ display: "none" }}
         autoPlay
         playsInline
         muted
       />
-      {/* <canvas
-        ref={canvasRef}
-        width={640}
-        height={480}
-        style={{ border: "2px solid #334155", borderRadius: 8 }}
-      /> */}
-    </div>  
-    )
-
-
+    </>
+  );
 }
