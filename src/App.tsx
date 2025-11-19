@@ -41,7 +41,7 @@ export default function App() {
 
   const prev = useCallback(() => setPage(p => Math.max(1, p - 1)), []);
 
-  const handleGesture = useCallback((g: string, score: number) => {
+  const handleGesture = useCallback((g: string, _score: number) => {
     const now = Date.now();
     if (now - lastFireRef.current < 900) return; // cooldown
     lastFireRef.current = now;
